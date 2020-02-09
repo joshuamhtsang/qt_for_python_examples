@@ -41,6 +41,24 @@ class LCDCounter(QtWidgets.QWidget):
         self.lcd.display(self.value)
 
 
+class TranslationField(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        QtWidgets.QWidget.__init__(self, parent)
+
+    def paintEvent(self, event):
+        painter = QtGui.QPainter(self)
+        self.paintBox(painter)
+
+    def paintBox(self, painter):
+        boxRect = QtCore.QRect(10, 10, 10, 10)
+
+        painter.save()
+        painter.setPen(QtCore.Qt.NoPen)
+        painter.setBrush(QtCore.Qt.black)
+        painter.drawRect(boxRect)
+        painter.restore()
+
+
 class MyWidget(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
@@ -52,12 +70,16 @@ class MyWidget(QtWidgets.QWidget):
         # LCD counter
         lcd_counter = LCDCounter(35)
 
+        # Box
+        box = TranslationField()
+
         self.connect(quit, QtCore.SIGNAL("clicked()"),
                      QtWidgets.qApp, QtCore.SLOT("quit()"))
 
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(quit)
         layout.addWidget(lcd_counter)
+        layout.addWidget(box)
         self.setLayout(layout)
 
 
