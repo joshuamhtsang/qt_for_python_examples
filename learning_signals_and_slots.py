@@ -8,34 +8,36 @@ class LCDCounter(QtWidgets.QWidget):
         self.value = 40
 
         # LCD display
-        lcd = QtWidgets.QLCDNumber(2)
+        self.lcd = QtWidgets.QLCDNumber(2)
 
         # Increment buttons
-        button_up = QtWidgets.QPushButton("+1")
-        button_down = QtWidgets.QPushButton("-1")
+        self.button_up = QtWidgets.QPushButton("+1")
+        self.button_down = QtWidgets.QPushButton("-1")
 
         # Connections
-        self.connect(button_up, QtCore.SIGNAL("clicked()"),
+        self.connect(self.button_up, QtCore.SIGNAL("clicked()"),
                      self.add_one)
-        self.connect(button_down, QtCore.SIGNAL("clicked()"),
+        self.connect(self.button_down, QtCore.SIGNAL("clicked()"),
                      self.minus_one)
 
         # Set layout
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(lcd)
-        layout.addWidget(button_up)
-        layout.addWidget(button_down)
+        layout.addWidget(self.lcd)
+        layout.addWidget(self.button_up)
+        layout.addWidget(self.button_down)
         self.setLayout(layout)
 
     @QtCore.Slot()
     def add_one(self):
         self.value += 1
         print(self.value)
+        self.lcd.display(self.value)
 
     @QtCore.Slot()
     def minus_one(self):
         self.value -= 1
         print(self.value)
+        self.lcd.display(self.value)
 
 
 class MyWidget(QtWidgets.QWidget):
