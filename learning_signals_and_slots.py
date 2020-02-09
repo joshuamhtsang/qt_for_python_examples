@@ -9,6 +9,7 @@ class LCDCounter(QtWidgets.QWidget):
 
         # LCD display
         self.lcd = QtWidgets.QLCDNumber(2)
+        self.lcd.display(self.value)
 
         # Increment buttons
         self.button_up = QtWidgets.QPushButton("+1")
