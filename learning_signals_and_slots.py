@@ -5,6 +5,7 @@ from PySide2 import QtWidgets, QtCore, QtGui
 class LCDCounter(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
+        self.value = 40
 
         # LCD display
         lcd = QtWidgets.QLCDNumber(2)
@@ -13,12 +14,28 @@ class LCDCounter(QtWidgets.QWidget):
         button_up = QtWidgets.QPushButton("+1")
         button_down = QtWidgets.QPushButton("-1")
 
+        # Connections
+        self.connect(button_up, QtCore.SIGNAL("clicked()"),
+                     self.add_one)
+        self.connect(button_down, QtCore.SIGNAL("clicked()"),
+                     self.minus_one)
+
         # Set layout
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(lcd)
         layout.addWidget(button_up)
         layout.addWidget(button_down)
         self.setLayout(layout)
+
+    @QtCore.Slot()
+    def add_one(self):
+        self.value += 1
+        print(self.value)
+
+    @QtCore.Slot()
+    def minus_one(self):
+        self.value -= 1
+        print(self.value)
 
 
 class MyWidget(QtWidgets.QWidget):
