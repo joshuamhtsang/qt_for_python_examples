@@ -3,9 +3,9 @@ from PySide2 import QtWidgets, QtCore, QtGui
 
 
 class LCDCounter(QtWidgets.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, initial_value, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
-        self.value = 40
+        self.value = initial_value
 
         # LCD display
         self.lcd = QtWidgets.QLCDNumber(2)
@@ -50,7 +50,7 @@ class MyWidget(QtWidgets.QWidget):
         quit.setFont(QtGui.QFont("Times", 18, QtGui.QFont.Bold))
 
         # LCD counter
-        lcd_counter = LCDCounter()
+        lcd_counter = LCDCounter(35)
 
         self.connect(quit, QtCore.SIGNAL("clicked()"),
                      QtWidgets.qApp, QtCore.SLOT("quit()"))
